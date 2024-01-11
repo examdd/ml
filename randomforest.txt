@@ -5,35 +5,36 @@ from sklearn import tree
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score,precision_score,f1_score
 
-x_train , x_test ,y_train,y_test = train_test_split(x,y)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-df = pd.read_csv('/content/pima(For Random Forest Program) (1).csv')
+
+df = pd.read_csv('/pima(For Random Forest Program) (2).csv')
 df.head()
 
-x = df.iloc[: , : -1]
+X = df.iloc[: , : -1]
 y = df.iloc[: , -1]
 
 dt = DecisionTreeClassifier()
 rf  = RandomForestClassifier(n_estimators = 30)
 
-dt.fit(x_train,y_train)
+dt.fit(X_train,y_train)
 
 
-rf.fit(x_train,y_train)
+rf.fit(X_train,y_train)
 
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
+
 
 # Predictions on the training set for Decision Tree
-dt_train_predictions = dt.predict(x_train)
+dt_train_predictions = dt.predict(X_train)
 # Predictions on the testing set for Decision Tree
-dt_test_predictions = dt.predict(x_test)
+dt_test_predictions = dt.predict(X_test)
 
 # Predictions on the training set for Random Forest
-rf_train_predictions = rf.predict(x_train)
+rf_train_predictions = rf.predict(X_train)
 # Predictions on the testing set for Random Forest
-rf_test_predictions = rf.predict(x_test)
+rf_test_predictions = rf.predict(X_test)
 
 # Evaluate Decision Tree on training set
 dt_train_accuracy = accuracy_score(y_train, dt_train_predictions)
